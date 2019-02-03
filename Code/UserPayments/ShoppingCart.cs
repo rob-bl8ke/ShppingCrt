@@ -9,7 +9,9 @@ namespace UserPayments
     {
         private List<Product> products = new List<Product>();
 
-        public double Total { get { return Math.Round(products.Sum(p => p.Price), 2); } }
+        public double TaxExcludedTotal { get => Math.Round(products.Sum(p => p.Price), 2); }
+
+        public double ProductCount { get => products.Count; }
 
         public void AddProduct(Product product)
         {
