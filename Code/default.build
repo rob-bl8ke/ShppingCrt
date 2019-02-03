@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<project name="Shopping Cart Build and Test" default="test" basedir=".">
+	<description>Build the Shopping Cart project.</description>
+	
+	<property name="pathto.msbuild" value="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\MSBuild.exe" />
+	<property name="pathto.testrunner" value="packages\NUnit.ConsoleRunner.3.9.0\tools\nunit3-console.exe" />
+	
+	<property name="build.dir" value="build" readonly="true" />
+	<property name="build.config" value="debug" />
+	<property name="pathto.solution" value="ShoppingCart.sln" />
+
+	<target name="clean">
+		<delete dir="${build.dir}" failonerror="false" />
+		<mkdir dir="${build.dir}" />
+	</target>
+	<target name="build" depends="clean">
+		<exec program="${pathto.msbuild}" verbose="true">
+			<arg line="${pathto.solution}" />
+			<arg value="/property:Configuration=${build.config}" />
+			<arg value="/property:OutDir=../${build.dir}" />
+		</exec>
+	</target>
+	<target name="test" depends="build">
+		<exec program="${pathto.testrunner}" verbose="true">
+			<arg value="${build.dir}/userpaymentstests.dll" />
+		</exec>
+	</target>
+</project>
