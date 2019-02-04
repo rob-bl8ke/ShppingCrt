@@ -149,8 +149,8 @@ namespace UserPaymentsTests
             foreach (Product product in twoAxeDeos)
                 shoppingCart.AddProduct(product);
 
-            Assert.AreEqual(2, shoppingCart.ProductByCodeCount("DOV01"), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the number of existing products with a given code.");
-            Assert.AreEqual(2, shoppingCart.ProductByCodeCount("AXE01"), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the number of existing products with a given code.");
+            Assert.AreEqual(2, shoppingCart.ProductByCodeCount(Helper.CreateDoveSoap()), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the number of existing products with a given code.");
+            Assert.AreEqual(2, shoppingCart.ProductByCodeCount(Helper.CreateAxeDeo()), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the number of existing products with a given code.");
         }
 
         [Test]
@@ -166,8 +166,8 @@ namespace UserPaymentsTests
             foreach (Product product in twoAxeDeos)
                 shoppingCart.AddProduct(product);
 
-            Assert.AreEqual(39.99, shoppingCart.ProductByCodeUnitPrice("DOV01"), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
-            Assert.AreEqual(99.99, shoppingCart.ProductByCodeUnitPrice("AXE01"), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
+            Assert.AreEqual(39.99, shoppingCart.ProductByCodeUnitPrice(Helper.CreateDoveSoap()), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
+            Assert.AreEqual(99.99, shoppingCart.ProductByCodeUnitPrice(Helper.CreateAxeDeo()), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
         }
 
         [Test]
@@ -175,8 +175,8 @@ namespace UserPaymentsTests
         {
             var shoppingCart = new ShoppingCart();
 
-            Assert.AreEqual(0, shoppingCart.ProductByCodeCount("DOV01"), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
-            Assert.AreEqual(0, shoppingCart.ProductByCodeCount("AXE01"), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
+            Assert.AreEqual(0, shoppingCart.ProductByCodeCount(Helper.CreateDoveSoap()), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
+            Assert.AreEqual(0, shoppingCart.ProductByCodeCount(Helper.CreateAxeDeo()), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
         }
 
         [Test]
@@ -184,8 +184,8 @@ namespace UserPaymentsTests
         {
             var shoppingCart = new ShoppingCart();
 
-            Assert.AreEqual(0, shoppingCart.ProductByCodeUnitPrice("DOV01"), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
-            Assert.AreEqual(0, shoppingCart.ProductByCodeUnitPrice("AXE01"), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
+            Assert.AreEqual(0, shoppingCart.ProductByCodeUnitPrice(Helper.CreateDoveSoap()), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
+            Assert.AreEqual(0, shoppingCart.ProductByCodeUnitPrice(Helper.CreateAxeDeo()), "When multiple items of different types are added to the shopping cart, the cart correctly calculated the unit price of a product with a given code.");
         }
 
         [Test]
@@ -205,6 +205,15 @@ namespace UserPaymentsTests
 
             TestDelegate emptyTest = () => new Product("", "Test Title", 20.00);
             Assert.That(emptyTest, Throws.TypeOf<ArgumentNullException>());
+        }
+
+        [Test]
+        public void A_Product_Equals_Another_Product()
+        {
+            var product1 = new Product("PR001", "Title", 39.99);
+            var product2 = new Product("PR001", "Title", 39.99);
+
+            Assert.AreEqual(product1, product2);
         }
     }
 }

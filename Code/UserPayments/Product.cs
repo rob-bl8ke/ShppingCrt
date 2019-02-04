@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UserPayments
 {
-    public class Product
+    public sealed class Product : IEquatable<Product>
     {
         public double Price { get; }
         public string Title { get; }
@@ -20,6 +20,16 @@ namespace UserPayments
             Title = title;
             Price = price;
             Code = code;
+        }
+
+        public override int GetHashCode()
+        {
+            return Price.GetHashCode() ^ Title.GetHashCode() ^ Code.GetHashCode();
+        }
+
+        public bool Equals(Product other)
+        {
+            return Price == other.Price && Title == other.Title && Code == other.Code;
         }
     }
 }
